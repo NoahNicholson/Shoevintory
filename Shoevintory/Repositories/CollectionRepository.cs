@@ -1,14 +1,24 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualBasic;
 using Shoevintory.Models;
 using Shoevintory.Utils;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Collection = Shoevintory.Models.Collection;
 
 namespace Shoevintory.Repositories
 {
-    public interface ICollectionRepository { int Create(Collection collection); }
+    public interface ICollectionRepository
+    {
+        int Create(Collection collection);
+        List<Collection> GetAllCollections(int userProfileId);
+        public Collection GetCollectionsById(int CollectionId);
+    }
+
     public class CollectionRepository : ICollectionRepository
     {
         private readonly IConfiguration _config;
@@ -52,7 +62,79 @@ namespace Shoevintory.Repositories
             }
             return collection.Id;
         }
+        public List<Collection> GetAllCollections(int userProfileId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                         SELECT Id, Name, UserProfileId
+                    
+                    FROM Collection
+                    WHERE UserProfileId = @UserProfileId
+                     ";
 
+                    DbUtils.AddParameter(cmd, "@userProfileId", userProfileId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        List<Collection> collections = new List<Collection>();
+                        while (reader.Read())
+                        {
+                            Collection collection = new Collection
+                            {
+
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                            };
+                            collections.Add(collection);
+                        }
+
+                        return collections;
+                    }
+                }
+            }
+
+        }
+        public Collection GetCollectionsById(int CollectionId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                         SELECT Id, Name, UserProfileId
+                    
+                    FROM Collection
+                    WHERE Id = @CollectionId
+                     ";
+
+                    DbUtils.AddParameter(cmd, "@collectionId", CollectionId);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        Collection collection = new Collection();
+                        while (reader.Read())
+                        {
+                            collection = new Collection
+                            {
+
+                                UserProfileId = DbUtils.GetInt(reader, "UserProfileId"),
+                                Id = DbUtils.GetInt(reader, "Id"),
+                                Name = DbUtils.GetString(reader, "Name"),
+                            };
+
+                        }
+
+                        return collection;
+                    }
+                }
+            }
+
+        }
     }
 }
-

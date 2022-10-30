@@ -27,6 +27,8 @@ namespace Shoevintory
             services.AddTransient<IFirebaseAuthService, FirebaseAuthService>();
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<ICollectionRepository, CollectionRepository>();
+            services.AddTransient<IShoeRepository, ShoeRepository>();
+            services.AddTransient<IShoeCollectionRepository, ShoeCollectionRepository>();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => options.Cookie.SameSite = SameSiteMode.Strict);

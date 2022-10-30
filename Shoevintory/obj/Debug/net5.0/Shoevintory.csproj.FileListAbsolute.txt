@@ -435,3 +435,10 @@ C:\Users\there\workspace\Shoevintory\Shoevintory\bin\Debug\net5.0\zh-Hant\Micros
 C:\Users\there\workspace\Shoevintory\Shoevintory\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\there\workspace\Shoevintory\Shoevintory\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\Collection\Create.cshtml.g.cs
+C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\Collection\Index.cshtml.g.cs
+C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\Shoe\Index.cshtml.g.cs
+C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\Shoe\Create.cshtml.g.cs
+C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\Collection\Details.cshtml.g.cs
+C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\ShoeCollection\Create.cshtml.g.cs
+C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\Shoe\Edit.cshtml.g.cs
+C:\Users\there\workspace\Shoevintory\Shoevintory\obj\Debug\net5.0\Razor\Views\Shoe\Delete.cshtml.g.cs

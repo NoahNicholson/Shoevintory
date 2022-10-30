@@ -1,30 +1,44 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using Shoevintory.Models;
 using Shoevintory.Repositories;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Security.Claims;
+using Collection = Shoevintory.Models.Collection;
 
 namespace Shoevintory.Controllers
 {
     public class CollectionController : Controller
     {
         private readonly ICollectionRepository _collectionRepository;
-        public CollectionController(ICollectionRepository collectionRepository)
+        private readonly IShoeRepository _shoeRepository;
+        public CollectionController(ICollectionRepository collectionRepository, IShoeRepository shoeRepository)
         {
             _collectionRepository = collectionRepository;
+            _shoeRepository = shoeRepository;
         }
         // GET: CollectionController
         public ActionResult Index()
         {
-            return View();
+            string userProfileId = HttpContext.User.Claims.First(claim => claim.Type == ClaimTypes.NameIdentifier).Value;
+            List<Collection> collections = _collectionRepository.GetAllCollections(int.Parse(userProfileId));
+
+          
+            return View(collections);
         }
 
         // GET: CollectionController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            List<Shoe> shoes = _shoeRepository.GetAllShoes(id);
+            Collection collection =_collectionRepository.GetCollectionsById(id);
+            var vm = new CollectionDetailsViewModel { CollectionId = id, Shoes = shoes.ToList(), CollectionName = collection.Name };
+
+            return View(vm);
+           
         }
 
         // GET: CollectionController/Create
@@ -46,7 +60,7 @@ namespace Shoevintory.Controllers
                 collection.UserProfileId = int.Parse(userProfileId);
                 _collectionRepository.Create(collection);
 
-                return View();
+                return RedirectToAction("Index");
             }
             catch
             {

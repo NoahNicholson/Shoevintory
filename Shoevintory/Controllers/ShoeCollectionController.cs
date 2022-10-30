@@ -1,10 +1,24 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Shoevintory.Models;
+using Shoevintory.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Shoevintory.Controllers
 {
     public class ShoeCollectionController : Controller
     {
+        private readonly IShoeRepository _shoeRepository;
+        private readonly IShoeCollectionRepository _shoeCollectionRepository;
+
+        public ShoeCollectionController(IShoeRepository shoeRepository, IShoeCollectionRepository shoeCollectionRepository)
+        {
+            _shoeRepository = shoeRepository;
+            _shoeCollectionRepository = shoeCollectionRepository;
+        }
+
         // GET: ShoeCollectionController
         public ActionResult Index()
         {
@@ -18,23 +32,29 @@ namespace Shoevintory.Controllers
         }
 
         // GET: ShoeCollectionController/Create
-        public ActionResult Create()
+        [HttpGet("/collection/{id}/shoes")]
+        public ActionResult Create(int id)
         {
-            return View();
+            List<Shoe> allshoes = _shoeRepository.GetAllShoes();
+            var items = allshoes.Select(s => new SelectListItem { Text = s.Name, Value = s.Id.ToString() });
+            var vm = new AddShoeToCollectionViewModel { CollectionId = id, Shoes = items.ToList() };
+            return View(vm);
         }
 
         // POST: ShoeCollectionController/Create
-        [HttpPost]
+        [HttpPost("/collection/{id}/shoes")]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(AddShoeToCollectionViewModel vm)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                _shoeCollectionRepository.Create(new ShoeCollection {ShoeId = vm.SelectedShoe, CollectionId = vm.CollectionId});
+
+                return RedirectToAction("Details", "Collection", new { id = vm.CollectionId });
             }
             catch
             {
-                return View();
+                return View(vm);
             }
         }
 
