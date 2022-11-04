@@ -12,12 +12,32 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @Html.HiddenFor(m => m.CollectionId)
-            @Html.HiddenFor(m => m.Shoes)
             <div class="form-group">
                 <label asp-for="SelectedShoe" class="control-label"></label>
-                <select asp-for="SelectedShoe" asp-items="@Model.Shoes"></select>
+                <select asp-for="SelectedShoe" asp-items="@Model.Shoes"></select> 
                 <span asp-validation-for="SelectedShoe" class="text-danger"></span>
+            </div>
+           @Html.HiddenFor(m => m.CollectionId)
+            @Html.HiddenFor(m => m.Shoes)
+            <div class="form-group">
+                <label asp-for="Size" class="control-label"></label>
+                <input asp-for="Size" class="form-control" />
+                <span asp-validation-for="Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quantity" class="control-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchaseDate" class="control-label"></label>
+                <input asp-for="PurchaseDate" class="form-control" />
+                <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PurchasePrice" class="control-label"></label>
+                <input asp-for="PurchasePrice" class="form-control" />
+                <span asp-validation-for="PurchasePrice" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

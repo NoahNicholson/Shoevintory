@@ -2,9 +2,11 @@
 
 namespace Shoevintory.Models
 {
-    public class ShoeCollection
+    public class UserShoeViewModel
     {
-        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ImageUrl { get; set; }
+        public decimal Retail { get; set; }
         public int ShoeId { get; set; }
         public int CollectionId { get; set; }
         public int Size { get; set; }

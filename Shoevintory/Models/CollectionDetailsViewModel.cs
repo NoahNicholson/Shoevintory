@@ -6,6 +6,6 @@ namespace Shoevintory.Models
     {
         public int CollectionId { get; set; }
         public string CollectionName { get; set; }  
-        public List <Shoe> Shoes { get; set; } 
+        public List <UserShoeViewModel> Shoes { get; set; } 
     }
 }

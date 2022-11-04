@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Policy;
 
 namespace Shoevintory.Models
 {
@@ -6,10 +7,8 @@ namespace Shoevintory.Models
     {
         public int Id { get; set; }
         public string Name {get; set; }
-        public int Quantity { get; set; }
-        public int Size { get; set; }
-        public int Price { get; set; }
-        public DateTime DatePurchased { get; set; }
-        public int SoldPrice { get; set; }
+        public string ImageUrl { get; set; }
+        public decimal Retail { get; set; }
+      
     }
 }

@@ -4,32 +4,40 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>@Model.CollectionName's Inventory</h1>
 
 <div>
-    <h4>CollectionDetailsViewModel</h4>
+    
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CollectionId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CollectionId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CollectionName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CollectionName)
-        </dd>
+        @*<dt class = "col-sm-2">
+        @Html.DisplayNameFor(model => model.CollectionId)
+        </dt>*@
+        @*<dd class = "col-sm-10">
+        @Html.DisplayFor(model => model.CollectionId)
+        </dd>*@
+
         @foreach (var s in Model.Shoes)
         {
-            <p>@s.Name</p>
+            <div class="card" style="width: 18rem; height: 35rem; padding: 0px; margin: 10px;">
+                <img class="card-img-top" src="@s.ImageUrl" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@s.Name</h5>
+                    <h5 class="card-title"><strong>Size</strong> : @s.Size</h5>
+                    <h5 class="card-title"><b>Quantity</b> : @s.Quantity</h5>
+                    <h5 class="card-title"><b>Purchase Date</b> : @s.PurchaseDate</h5>
+                    <h5 class="card-title"><b>Purchase Price</b> : @s.PurchasePrice</h5>
+                    @*<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                </div>
+            </div>
         }
-        <a asp-controller="ShoeCollection" asp-action="Create" asp-route-id="@Model.CollectionId">Add Shoe</a>
     </dl>
+        <a class="btn btn-primary" asp-controller="ShoeCollection" asp-action="Create" asp-route-id="@Model.CollectionId">Add Shoes</a>
 </div>
+<p>
+
+</p>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-primary" asp-action="Index">Back</a>
 </div>

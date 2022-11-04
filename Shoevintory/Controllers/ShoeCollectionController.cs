@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Shoevintory.Models;
 using Shoevintory.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -48,13 +49,13 @@ namespace Shoevintory.Controllers
         {
             try
             {
-                _shoeCollectionRepository.Create(new ShoeCollection {ShoeId = vm.SelectedShoe, CollectionId = vm.CollectionId});
+                _shoeCollectionRepository.Create(new ShoeCollection {ShoeId = vm.SelectedShoe, Size = vm.Size, Quantity = vm.Quantity, PurchaseDate = vm.PurchaseDate, PurchasePrice = vm.PurchasePrice,  CollectionId = vm.CollectionId});
 
                 return RedirectToAction("Details", "Collection", new { id = vm.CollectionId });
             }
-            catch
+            catch (Exception ex)
             {
-                return View(vm);
+                return RedirectToAction("Create", new { id = vm.CollectionId });
             }
         }
 

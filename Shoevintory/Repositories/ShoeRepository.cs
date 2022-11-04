@@ -44,19 +44,15 @@ namespace Shoevintory.Repositories
                 {
                     cmd.CommandText = @"
                                         INSERT INTO Shoe
-                                            (Name, Quantity, Size, Price, DatePurchased, SoldPrice) 
+                                            (Name, ImageUrl, Retail) 
                                         OUTPUT INSERTED.ID
-                                            VALUES(  @name, @quantity, @size, @price, @datePurchased, @soldPrice)";
+                                            VALUES(  @name, @imageUrl, @retail)";
 
-                    //DbUtils.AddParameter(cmd, "@id", userProfile.Id);
+                    
 
                     DbUtils.AddParameter(cmd, "@name", shoe.Name);
-                    DbUtils.AddParameter(cmd, "@quantity", shoe.Quantity);
-                    DbUtils.AddParameter(cmd, "@size", shoe.Size);
-                    DbUtils.AddParameter(cmd, "@price", shoe.Price);
-                    DbUtils.AddParameter(cmd, "@datePurchased", shoe.DatePurchased);
-                    DbUtils.AddParameter(cmd, "@soldPrice", shoe.SoldPrice);
-
+                    DbUtils.AddParameter(cmd, "@imageUrl", shoe.ImageUrl);
+                    DbUtils.AddParameter(cmd, "@retail", shoe.Retail);
 
 
                     shoe.Id = (int)cmd.ExecuteScalar();
@@ -74,7 +70,7 @@ namespace Shoevintory.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT s.Id, Name, Quantity, Size, Price, DatePurchased, SoldPrice
+                         SELECT s.Id, Name, ImageUrl, Retail
                     
                     FROM Shoe s
                   
@@ -92,13 +88,11 @@ namespace Shoevintory.Repositories
                             shoe = new Shoe
                             {
 
-                                Quantity = DbUtils.GetInt(reader, "Quantity"),
+                              
                                 Id = DbUtils.GetInt(reader, "Id"),
                                 Name = DbUtils.GetString(reader, "Name"),
-                                Size = DbUtils.GetInt(reader, "Size"),
-                                Price = DbUtils.GetInt(reader, "Price"),
-                                DatePurchased = DbUtils.GetDateTime(reader, "DatePurchased"),
-                                SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
+                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                                Retail = DbUtils.GetDecimal(reader, "Retail"),
                             };
 
 
@@ -144,17 +138,15 @@ namespace Shoevintory.Repositories
                 {
                     cmd.CommandText = @"
                                         UPDATE Shoe
-                                       SET   Name = @name, Quantity = @quantity, Size = @size, Price = @price , DatePurchased = @datePurchased, SoldPrice = @soldPrice
+                                       SET   Name = @name, Retail = @retail , ImageUrl =@imageUrl
                                        WHERE Id = @Id ";
 
                     DbUtils.AddParameter(cmd, "@id", shoe.Id);
 
                     DbUtils.AddParameter(cmd, "@name", shoe.Name);
-                    DbUtils.AddParameter(cmd, "@quantity", shoe.Quantity);
-                    DbUtils.AddParameter(cmd, "@size", shoe.Size);
-                    DbUtils.AddParameter(cmd, "@price", shoe.Price);
-                    DbUtils.AddParameter(cmd, "@datePurchased", shoe.DatePurchased);
-                    DbUtils.AddParameter(cmd, "@soldPrice", shoe.SoldPrice);
+                    DbUtils.AddParameter(cmd, "@retail", shoe.Retail);
+                    DbUtils.AddParameter(cmd, "@imageUrl", shoe.ImageUrl);
+                    
 
 
 
@@ -173,7 +165,7 @@ namespace Shoevintory.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT s.Id, Name, Quantity, Size, Price, DatePurchased, SoldPrice
+                         SELECT s.Id, Name, ImageUrl, Retail
                     
                     FROM Shoe s
                     JOIN ShoeCollection sc ON s.Id = sc.ShoeId
@@ -190,13 +182,12 @@ namespace Shoevintory.Repositories
                             Shoe shoe = new Shoe
                             {
 
-                                Quantity = DbUtils.GetInt(reader, "Quantity"),
+                               
+                                ImageUrl = DbUtils.GetNullableString(reader, "ImageUrl"),
                                 Id = DbUtils.GetInt(reader, "Id"),
                                 Name = DbUtils.GetString(reader, "Name"),
-                                Size = DbUtils.GetInt(reader, "Size"),
-                                Price = DbUtils.GetInt(reader, "Price"),
-                                DatePurchased = DbUtils.GetDateTime(reader, "DatePurchased"),
-                                SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
+                                Retail = DbUtils.GetDecimal(reader, "Retail"),
+                               
                             };
                             shoes.Add(shoe);
                         }
@@ -214,7 +205,7 @@ namespace Shoevintory.Repositories
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                         SELECT s.Id, Name, Quantity, Size, Price, DatePurchased, SoldPrice
+                         SELECT s.Id, Name, ImageUrl, Retail
                     
                     FROM Shoe s
                     
@@ -230,13 +221,12 @@ namespace Shoevintory.Repositories
                             Shoe shoe = new Shoe
                             {
 
-                                Quantity = DbUtils.GetInt(reader, "Quantity"),
+                              
                                 Id = DbUtils.GetInt(reader, "Id"),
                                 Name = DbUtils.GetString(reader, "Name"),
-                                Size = DbUtils.GetInt(reader, "Size"),
-                                Price = DbUtils.GetInt(reader, "Price"),
-                                DatePurchased = DbUtils.GetDateTime(reader, "DatePurchased"),
-                                SoldPrice = DbUtils.GetInt(reader, "SoldPrice"),
+                                ImageUrl = DbUtils.GetString(reader, "ImageUrl"),
+                                Retail = DbUtils.GetDecimal(reader, "Retail"),
+                               
                             };
                             shoes.Add(shoe);
                         }

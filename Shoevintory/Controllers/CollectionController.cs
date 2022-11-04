@@ -15,10 +15,12 @@ namespace Shoevintory.Controllers
     {
         private readonly ICollectionRepository _collectionRepository;
         private readonly IShoeRepository _shoeRepository;
-        public CollectionController(ICollectionRepository collectionRepository, IShoeRepository shoeRepository)
+        private readonly IShoeCollectionRepository _shoeCollectionRepository;
+        public CollectionController(ICollectionRepository collectionRepository, IShoeRepository shoeRepository, IShoeCollectionRepository shoeCollectionRepository)
         {
             _collectionRepository = collectionRepository;
             _shoeRepository = shoeRepository;
+            _shoeCollectionRepository = shoeCollectionRepository;
         }
         // GET: CollectionController
         public ActionResult Index()
@@ -33,9 +35,9 @@ namespace Shoevintory.Controllers
         // GET: CollectionController/Details/5
         public ActionResult Details(int id)
         {
-            List<Shoe> shoes = _shoeRepository.GetAllShoes(id);
+            List<UserShoeViewModel> usershoes = _shoeCollectionRepository.GetAllUserShoes(id);
             Collection collection =_collectionRepository.GetCollectionsById(id);
-            var vm = new CollectionDetailsViewModel { CollectionId = id, Shoes = shoes.ToList(), CollectionName = collection.Name };
+            var vm = new CollectionDetailsViewModel { CollectionId = id, Shoes = usershoes.ToList(), CollectionName = collection.Name };
 
             return View(vm);
            

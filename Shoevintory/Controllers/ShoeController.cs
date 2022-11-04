@@ -78,17 +78,19 @@ namespace Shoevintory.Controllers
             }
         }
 
-        // GET: ShoeController/Delete/5
+        ////GET: ShoeController/Delete/5
+        //[HttpGet]
         //public ActionResult Delete(int id)
         //{
+        //    Shoe shoe = _shoeRepository.GetShoeById(id);
 
-        //    return View();
+        //    return View(shoe);
         //}
 
         // POST: ShoeController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id, Shoe shoe)
         {
             try
             {
